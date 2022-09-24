@@ -44,3 +44,6 @@ workflows:
   sample:
     jobs:
       - build-and-test
+      - img-to-hub:
+          requires:
+            - build-and-test
