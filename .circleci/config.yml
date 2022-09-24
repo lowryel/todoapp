@@ -26,6 +26,20 @@ jobs:
           # This assumes pytest is installed via the install-package step above
           command: python manage.py test
 
+  img-to-hub:
+    docker:
+      - image: cimg/python:3.8
+        auth:
+          username: $DOCKERHUB_USERNAME
+          password: $DOCKERHUB_PASSWORD
+    steps:
+      - checkout
+      - run:
+          name: Push image to dockerhub
+          command: |
+            echo $DOCKERHUB_USERNAME
+            
+
 workflows:
   sample:
     jobs:

@@ -1,4 +1,10 @@
-FROM python:3.8.3-alpine
+FROM python:3.8-buster
+
+
+RUN apt-get update && apt-get install nginx vim -y --no-install-recommends
+COPY nginx.default /etc/nginx/sites-available/default
+RUN ln -sf /dev/stdout /var/log/nginx/access.log \
+    && ln -sf /dev/stderr /var/log/nginx/error.log
 
 # working directory
 WORKDIR /usr/src/todo
@@ -13,8 +19,10 @@ COPY . /usr/src/todo/
 # install dependencies
 RUN pip install --upgrade pip 
 RUN pip install -r requirements.txt
+RUN chown -R www-data:www-data /usr/src/todo
 
 # Expose the application to port 8000
-EXPOSE 8000
+EXPOSE 8020
+STOPSIGNAL SIGTERM
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["start-server.sh"]
