@@ -19,7 +19,7 @@ jobs:
           # This assumes pytest is installed via the install-package step above
           command: |
             python manage.py makemigrations
-            python manaeg.py migrate 
+            python manage.py migrate 
 
       - run:
           name: Run tests
