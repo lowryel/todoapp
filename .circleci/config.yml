@@ -23,7 +23,7 @@ jobs:
             python manage.py makemigrations
             python manage.py migrate
       - run:
-          name: Run django pytest
+          name: Run django test
           
           command: python manage.py test
 
