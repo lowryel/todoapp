@@ -1,5 +1,5 @@
 # todoapp
-daily task app
+# daily task app
 
 * Run: 'docker build -t someImageName .' independently
 
