@@ -5,9 +5,9 @@ daily task app
 
 * Then run:
     docker run -it -p 8020:8020 \
-        -e DJANGO_SUPERUSER_USERNAME=Eugene \
-        -e DJANGO_SUPERUSER_PASSWORD=cartelo009 \
-        -e DJANGO_SUPERUSER_EMAIL=ellowry09@gmail.com \
+        -e DJANGO_SUPERUSER_USERNAME= \
+        -e DJANGO_SUPERUSER_PASSWORD= \
+        -e DJANGO_SUPERUSER_EMAIL= \
         todo
 
 > Afterwards
