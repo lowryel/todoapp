@@ -9,9 +9,6 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 # working directory
 WORKDIR /todo
 
-# setup environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
 
 # copy the entire project folder into the working directory
 COPY . . /todo/
@@ -21,8 +18,8 @@ RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 RUN chown -R www-data:www-data /todo
 
-# Expose the application to port 8000
+# Expose the application to port 8020
 EXPOSE 8020
 STOPSIGNAL SIGTERM
 
-CMD ["start-server.sh"]
+CMD ["./start-server.sh"]
