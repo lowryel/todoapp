@@ -15,3 +15,5 @@
 * Add your auth details to CI environment variable
 * Then pass your dockerhub auth details into a job in CI pipeline
 
+
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/lowryel/todoapp/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/lowryel/todoapp/tree/main)
