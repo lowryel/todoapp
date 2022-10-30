@@ -1,7 +1,7 @@
 # todoapp
 # daily task app
 
-* Run: 'docker build -t someImageName .' independently
+* Run: 'docker build -t todoapp .' independently
 
 * Then run:
     docker run -it -p 8020:8020 \
@@ -17,3 +17,10 @@
 
 
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/lowryel/todoapp/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/lowryel/todoapp/tree/main)
+
+* Note: virtual env is in Users folder with name (.djangoenv)
+
+* run 'redis-server' to start the cache server
+* run 'redis-cli -n 1' in another terminal
+* then run 'keys *' to get the cached files
+* run 'flushall' to clear the cached files
