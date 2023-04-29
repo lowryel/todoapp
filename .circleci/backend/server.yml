@@ -1,8 +1,10 @@
 ---
 - hosts: web
   become: true
-  become_user: ubuntu
+  user: ubuntu
   become_method: sudo
+  become_user: root
+  gather_facts: false
 
   roles:
     - server
