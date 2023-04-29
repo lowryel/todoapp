@@ -55,7 +55,7 @@ jobs:
 
       - run: apk add --update git
 
-      - run: apt install openssh -y
+      - run: apk add --update openssh
 
       - run:
           name: "ssh into the server"
