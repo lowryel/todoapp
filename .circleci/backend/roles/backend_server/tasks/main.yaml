@@ -39,14 +39,13 @@
     dest: $HOME/todo_project
     follow: yes
   loop:
-    - .circleci
-    - taskapp
-    - static
-    - templates
-    - to_do
-    - db.sqlite3
-    - manage.py
-    - requirements.txt
+    - ./taskapp
+    - ./static
+    - ./templates
+    - ./to_do
+    - ./db.sqlite3
+    - ./manage.py
+    - ./requirements.txt
 
 - name: install python dependencies
   ansible.builtin.pip:
