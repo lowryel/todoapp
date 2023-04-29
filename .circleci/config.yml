@@ -50,9 +50,12 @@ jobs:
           name: install dependencies
           command: |
             apk --no-cache add py-pip
-            apk add --update ansible
-            apk add --update git
-            apk add -update openssh
+            
+      - run: apk add --update ansible
+
+      - run: apk add --update git
+
+      - run: apk add -update openssh
 
       - run:
           name: "ssh into the server"
@@ -62,7 +65,7 @@ jobs:
             
 
 workflows:
-  sample:
+  django-pipeline:
     jobs:
       - build-and-test
       - img-to-hub:
