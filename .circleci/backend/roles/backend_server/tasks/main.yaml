@@ -28,7 +28,7 @@
 
 - name: Install MyApp using one of the remote protocols (bzr+,hg+,git+)
   ansible.builtin.copy:
-    src: git+https://github.com/lowryel/todoapp.git
+    src: https://github.com/lowryel/todoapp.git
     dest: $HOME/todo_project
 
 
