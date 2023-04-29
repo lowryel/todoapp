@@ -55,7 +55,7 @@ jobs:
             apk add -update openssh
 
       - run:
-          name:
+          name: "ssh into the server"
           command: |
             cd .circleci/backend
             ansible-playbook -i inventory server.yml
