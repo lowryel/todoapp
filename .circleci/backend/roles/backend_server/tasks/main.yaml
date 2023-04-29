@@ -26,27 +26,28 @@
     state: directory
 
 
-- name: Install MyApp using one of the remote protocols (bzr+,hg+,git+)
-  ansible.builtin.copy:
-    url: https://github.com/lowryel/todoapp.git
-    remote_src: yes
-    dest: $HOME/todo_project
-
-
-# - name: copy app folder to remote
+# - name: Install MyApp using one of the remote protocols (bzr+,hg+,git+)
 #   ansible.builtin.copy:
-#     src: "/root/project/{{ item }}"
+#     url: https://github.com/lowryel/todoapp.git
 #     remote_src: yes
 #     dest: $HOME/todo_project
-#     follow: yes
-#   loop:
-#     - taskapp
-#     - static
-#     - templates
-#     - to_do
-#     - db.sqlite3
-#     - manage.py
-#     - requirements.txt
+
+
+- name: copy app folder to remote
+  ansible.builtin.copy:
+    src: "/root/project/{{ item }}"
+    remote_src: yes
+    dest: $HOME/todo_project
+    follow: yes
+  loop:
+    - .circleci
+    - taskapp
+    - static
+    - templates
+    - to_do
+    - db.sqlite3
+    - manage.py
+    - requirements.txt
 
 - name: install python dependencies
   ansible.builtin.pip:
