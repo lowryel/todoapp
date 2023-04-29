@@ -20,10 +20,6 @@
     name: python3-pip
     state: present
 
-- name: install python dependencies
-  ansible.builtin.pip:
-    requirements: /requirements.txt
-
 - name: create a directory
   ansible.builtin.file:
     path: $HOME/todo_project
@@ -40,8 +36,14 @@
       - db.sqlite3
       - manage.py
       - requirements.txt
-
     dest: $HOME/todo_project
     follow: yes
+
+- name: install python dependencies
+  ansible.builtin.pip:
+    requirements: requirements.txt
+
+
+
 
 
