@@ -22,7 +22,7 @@
 
 - name: install python dependencies
   ansible.builtin.pip:
-    requirements: /todoapp/requirements.txt
+    requirements: /requirements.txt
 
 - name: create a directory
   ansible.builtin.file:
