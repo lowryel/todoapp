@@ -27,8 +27,9 @@
 
 - name: copy app folder to remote
   ansible.builtin.copy:
-    src: "/todoapp/{{ item }}"
+    src: "./{{ item }}"
     remote_src: $HOME/todo_project
+    dest: $HOME/todo_project
     follow: yes
   loop:
     - taskapp
@@ -41,7 +42,7 @@
 
 - name: install python dependencies
   ansible.builtin.pip:
-    requirements: requirements.txt
+    requirements: $HOME/todo_project/requirements.txt
 
 
 
