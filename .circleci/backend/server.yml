@@ -15,7 +15,7 @@
 
   pre_tasks:
     - name: wait 600 seconds for connection to be reachable
-      ansible.builtin.wait_for_connection:
+      wait_for_connection:
         timeout: 600
         delay: 1
 
