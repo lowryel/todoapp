@@ -27,8 +27,8 @@
 
 - name: copy app folder to remote
   ansible.builtin.copy:
-    src: "/todoapp/{{ with_items }}"
-    items:
+    src: "/todoapp/{{ item }}"
+    loop:
       - taskapp
       - static
       - templates
