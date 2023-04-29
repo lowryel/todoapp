@@ -28,7 +28,7 @@
 - name: copy app folder to remote
   ansible.builtin.copy:
     src: "/todoapp/{{ item }}"
-    dest: $HOME/todo_project
+    remote_src: $HOME/todo_project
     follow: yes
   loop:
     - taskapp
