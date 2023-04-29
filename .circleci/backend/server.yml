@@ -21,7 +21,7 @@
 
     - name: install python for ansible
       ansible.builtin.apt:
-        name: pytyhon3
+        name: python3
         state: present
         update_cache: yes
 
