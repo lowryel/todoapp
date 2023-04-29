@@ -11,8 +11,8 @@ CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 @cache_page(CACHE_TTL)
 def home(request):
     tasks=Task.objects.all()
-    form=TaskForm()
-    form.is_bound
+    form=TaskForm({'name': 'James'})
+    print(form.is_bound)
     if request.method=="POST":
         form = TaskForm(request.POST)
         if form.is_valid():

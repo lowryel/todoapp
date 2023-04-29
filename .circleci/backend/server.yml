@@ -1,0 +1,26 @@
+---
+- hosts: web
+  become: true
+  become_user: ubuntu
+  become_method: sudo
+
+  roles:
+    - server
+  
+  vars:
+    - ansible_python_interpreter: /usr/bin/python3
+    - ansible_host_key_checking: false
+
+  pre_tasks:
+    - name: wait 600 seconds for connection to be reachable
+      ansible.builtin.wait_for_connection:
+        timeout: 600
+        delay: 1
+
+    - name: install python for ansible
+      ansible.builtin.apt:
+        name: pytyhon3
+        state: present
+        update_cache: yes
+
+
