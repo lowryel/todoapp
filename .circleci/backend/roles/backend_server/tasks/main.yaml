@@ -27,8 +27,8 @@
 
 - name: copy app folder to remote
   ansible.builtin.copy:
-    src: "./todoapp/{{ item }}"
-    # remote_src: $HOME/todo_project
+    src: "./root/project/todoapp/{{ item }}"
+    remote_src: $HOME/todo_project
     dest: $HOME/todo_project
     follow: yes
   loop:
