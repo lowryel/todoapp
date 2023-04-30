@@ -132,8 +132,8 @@
     cd /mnt
     gunicorn -c conf/gunicorn_config.py to_do.wsgi
 
-- name: start apache server
-  service:
-    name: nginx
-    state: started
+# - name: start apache server
+#   service:
+#     name: nginx
+#     state: started
 
