@@ -75,7 +75,7 @@ jobs:
             mv static.tar.gz .circleci/backend/roles/backend_server/files/static.tar.gz
 
             mv requirements.txt .circleci/backend/roles/backend_server/files/requirements.txt
-            # mv db.sqlite3 .circleci/backend/roles/backend_server/files/db.sqlite3
+            mv db.sqlite3 .circleci/backend/roles/backend_server/files/db.sqlite3
             mv manage.py .circleci/backend/roles/backend_server/files/manage.py
             mv conf/gunicorn_config.py .circleci/backend/roles/backend_server/files/gunicorn_config.py
             mv nginx.default .circleci/backend/roles/backend_server/files/nginx.default

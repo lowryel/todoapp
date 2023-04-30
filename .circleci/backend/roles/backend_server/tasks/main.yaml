@@ -39,12 +39,14 @@
     src: "files/artifact.tar.gz"
     dest: "/mnt/taskapp/artifact.tar.gz"
     follow: yes
+  become: true
 
 - name: "Copy to_do to server"
   ansible.builtin.copy:
     src: "files/app.tar.gz"
     dest: "/mnt/to_do/app.tar.gz"
     follow: yes
+  become: true
 
 - name: "Copy templates to server"
   ansible.builtin.copy:
@@ -63,6 +65,13 @@
     src: "files/requirements.txt"
     dest: "/mnt/requirements.txt"
     follow: yes
+
+- name: "Copy files to server"
+  ansible.builtin.copy:
+    src: "files/db.sqlite3"
+    dest: "/mnt/db.sqlite3"
+    follow: yes
+
 
 - name: install python dependencies
   ansible.builtin.pip:
@@ -87,12 +96,14 @@
     cd /mnt/taskapp
     tar -xvf artifact.tar.gz .
     rm artifact.tar.gz
+  become: true
 
 - name: extract to_do folder
   ansible.builtin.shell:
     cd /mnt/to_do
     tar -xvf app.tar.gz .
     rm app.tar.gz
+  become: true
 
 
 - name: extract templates folder
@@ -100,12 +111,14 @@
     cd /mnt
     tar -xvf templates.tar.gz .
     rm templates.tar.gz
+  become: true
 
 - name: extract static folder
   ansible.builtin.shell:
     cd /mnt
     tar -xvf static.tar.gz .
     rm static.tar.gz
+  become: true
 
 
 - name: "Copy files to server"
@@ -137,7 +150,7 @@
 #     name: nginx
 #     state: started
 
-- name: "Copy files to server"
+- name: "run server server"
   ansible.builtin.shell:
     cd /mnt
     python3 manage.py runserver
