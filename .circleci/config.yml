@@ -62,10 +62,11 @@ jobs:
           name: compresss the project files
           command: |
             tar -C taskapp -czvf artifact.tar.gz .
+            
             # tar -C backend -czvf artifact.tar.gz .
             mkdir -p ~/project/.circleci/backend/roles/backend_server/files/
-            mv artifact.tar.gz .circleci/ansible/roles/backend_server/files/artifact.tar.gz
-            mv requirements.txt .circleci/ansible/roles/backend_server/files/requirements.txt
+            mv artifact.tar.gz .circleci/backend/roles/backend_server/files/artifact.tar.gz
+            mv requirements.txt .circleci/backend/roles/backend_server/files/requirements.txt
 
       - run:
           name: "ssh into the server"
