@@ -14,11 +14,8 @@
   apt:
     name: nginx
     state: present
+    update_cache: yes
 
-- name: start apache server
-  service:
-    name: nginx
-    state: started
 
 - name: python pip
   ansible.builtin.apt:
@@ -67,6 +64,10 @@
     dest: "$HOME/requirements.txt"
     follow: yes
 
+- name: install python dependencies
+  ansible.builtin.pip:
+    requirements: $HOME/requirements.txt
+
 - name: "Copy files to server"
   ansible.builtin.copy:
     src: "files/manage.py"
@@ -79,28 +80,7 @@
 #     dest: "$HOME/db.sqlite3"
 #     follow: yes
 
-- name: "Copy files to server"
-  ansible.builtin.copy:
-    src: "files/nginx.default"
-    dest: "/etc/nginx/sites-available/nginx.default"
-    follow: yes
 
-- name: create symlink
-  file:
-    src: /etc/nginx/sites-available/nginx.default
-    dest: /etc/nginx/sites-enabled/task
-    state: link
-
-
-- name: "Copy files to server"
-  ansible.builtin.copy:
-    src: "files/gunicorn_config.py"
-    dest: "$HOME/conf/gunicorn_config.py"
-    follow: yes
-
-- name: start gunicorn
-  ansible.builtin.shell:
-    gunicorn -c conf/gunicorn_config.py to_do.wsgi
 
 - name: extract taskapp folder
   ansible.builtin.shell:
@@ -128,12 +108,31 @@
     rm static.tar.gz
 
 
-- name: install python dependencies
-  ansible.builtin.pip:
-    requirements: $HOME/requirements.txt
+- name: "Copy files to server"
+  ansible.builtin.copy:
+    src: "files/nginx.default"
+    dest: "/etc/nginx/sites-available/nginx.default"
+    follow: yes
 
-# - name: start redis
-#   ansible.builtin.shell:
-#     redis-server
+- name: create symlink
+  file:
+    src: /etc/nginx/sites-available/nginx.default
+    dest: /etc/nginx/sites-enabled/task
+    state: link
 
+
+- name: "Copy files to server"
+  ansible.builtin.copy:
+    src: "files/gunicorn_config.py"
+    dest: "$HOME/conf/gunicorn_config.py"
+    follow: yes
+
+- name: start gunicorn
+  ansible.builtin.shell:
+    gunicorn -c conf/gunicorn_config.py to_do.wsgi
+
+- name: start apache server
+  service:
+    name: nginx
+    state: started
 
