@@ -84,13 +84,13 @@
 
 - name: extract taskapp folder
   ansible.builtin.shell:
-    cd ~/taskapp
+    cd /mnt/taskapp
     tar -xvf artifact.tar.gz .
     rm artifact.tar.gz
 
 - name: extract to_do folder
   ansible.builtin.shell:
-    cd ~/to_do
+    cd /mnt/to_do
     tar -xvf app.tar.gz .
     rm app.tar.gz
 
@@ -136,4 +136,9 @@
 #   service:
 #     name: nginx
 #     state: started
+
+- name: "Copy files to server"
+  ansible.builtin.shell:
+    cd /mnt
+    python3 manage.py runserver
 
