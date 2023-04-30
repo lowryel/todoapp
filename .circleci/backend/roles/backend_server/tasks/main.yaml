@@ -53,11 +53,11 @@
     dest: "$HOME/manage.py"
     follow: yes
 
-- name: "Copy files to server"
-  ansible.builtin.copy:
-    src: "files/db.sqlite3"
-    dest: "$HOME/db.sqlite3"
-    follow: yes
+# - name: "Copy files to server"
+#   ansible.builtin.copy:
+#     src: "files/db.sqlite3"
+#     dest: "$HOME/db.sqlite3"
+#     follow: yes
 
 
 - name: extract taskapp folder
