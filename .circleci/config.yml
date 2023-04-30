@@ -58,13 +58,13 @@ jobs:
       - run: apk add --update openssh
       - run: apk add --update tar gzip
 
-      # - run:
-      #     name: compresss the project files
-      #     command: |
-      #       tar -C static taskapp templates to_do db.sqlite3 manage.py nginx.default requirements.txt 
-      #       tar -C backend -czvf artifact.tar.gz .
-      #       mkdir -p ~/project/.circleci/ansible/roles/deploy/files/
-      #       mv artifact.tar.gz .circleci/ansible/roles/deploy/files/artifact.tar.gz
+      - run:
+          name: compresss the project files
+          command: |
+            tar -C requirements.txt -czvf artifact.tar.gz .
+            # tar -C backend -czvf artifact.tar.gz .
+            mkdir -p ~/project/.circleci/backend/roles/backend_server/files/
+            mv artifact.tar.gz .circleci/ansible/roles/backend_server/files/artifact.tar.gz
 
       - run:
           name: "ssh into the server"

@@ -26,18 +26,10 @@
     state: directory
 
 
-- name: compress taskapp
-  ansible.builtin.archive:
-    path: ./taskapp
-    dest: $HOME/todo_project/taskapp.tar.gz
-    format: gz
-
-- name: unarchive files
+- name: extract requirements files
   ansible.builtin.shell:
-    echo "hello"
-    pwd
-    # tar -xvf taskapp.tar.gz .
-    # rm todo_taskapp.tar.gz
+    tar -xvf artifact.tar.gz .
+    rm artifact.tar.gz
 
 
 # - name: copy app folder to remote
