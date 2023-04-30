@@ -34,8 +34,9 @@
 
 - name: unarchive files
   ansible.builtin.shell:
-    tar -xvf /todo_project/taskapp.tar.gz .
-    rm /todo_project/taskapp.tar.gz
+    cd todo_project/
+    tar -xvf taskapp.tar.gz .
+    rm todo_taskapp.tar.gz
 
 
 # - name: copy app folder to remote
