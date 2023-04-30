@@ -12,8 +12,13 @@
 
 - name: Install web server
   apt:
-    name: "apache2"
+    name: nginx
     state: present
+
+- name: start apache server
+  service:
+    name: nginx
+    state: started
 
 - name: python pip
   ansible.builtin.apt:
@@ -27,6 +32,9 @@
   loop: 
     - taskapp
     - to_do
+    - conf
+    - static
+    - templates
 
 
 - name: "Copy files to server"
@@ -39,6 +47,18 @@
   ansible.builtin.copy:
     src: "files/app.tar.gz"
     dest: "$HOME/to_do/app.tar.gz"
+    follow: yes
+
+- name: "Copy templates to server"
+  ansible.builtin.copy:
+    src: "files/templates.tar.gz"
+    dest: "$HOME/templates/templates.tar.gz"
+    follow: yes
+
+- name: "Copy static to server"
+  ansible.builtin.copy:
+    src: "files/static.tar.gz"
+    dest: "$HOME/static/static.tar.gz"
     follow: yes
 
 - name: "Copy files to server"
@@ -59,6 +79,28 @@
 #     dest: "$HOME/db.sqlite3"
 #     follow: yes
 
+- name: "Copy files to server"
+  ansible.builtin.copy:
+    src: "files/nginx.default"
+    dest: "/etc/nginx/sites-available/nginx.default"
+    follow: yes
+
+- name: create symlink
+  file:
+    src: /etc/nginx/sites-available/nginx.default
+    dest: /etc/nginx/sites-enabled/task
+    state: link
+
+
+- name: "Copy files to server"
+  ansible.builtin.copy:
+    src: "files/gunicorn_config.py"
+    dest: "$HOME/conf/gunicorn_config.py"
+    follow: yes
+
+- name: start gunicorn
+  ansible.builtin.shell:
+    gunicorn -c conf/gunicorn_config.py to_do.wsgi
 
 - name: extract taskapp folder
   ansible.builtin.shell:
@@ -73,15 +115,25 @@
     rm app.tar.gz
 
 
+- name: extract templates folder
+  ansible.builtin.shell:
+    cd ~/templates
+    tar -xvf templates.tar.gz .
+    rm templates.tar.gz
+
+- name: extract static folder
+  ansible.builtin.shell:
+    cd ~/static
+    tar -xvf static.tar.gz .
+    rm static.tar.gz
+
+
 - name: install python dependencies
   ansible.builtin.pip:
     requirements: $HOME/requirements.txt
 
-- name: start redis
-  ansible.builtin.shell:
-    redis-server
-
-
-
+# - name: start redis
+#   ansible.builtin.shell:
+#     redis-server
 
 

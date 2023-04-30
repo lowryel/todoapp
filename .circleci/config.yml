@@ -59,20 +59,26 @@ jobs:
       - run: apk add --update tar gzip
 
       - run:
-          name: compresss the project files
+          name: compresss the project files and move it to a folder
           command: |
             tar -C taskapp -czvf artifact.tar.gz .
             tar -C to_do -czvf app.tar.gz .
 
-            # tar -C backend -czvf artifact.tar.gz .
+            tar -C static -czvf static.tar.gz .
+            tar -C templates -czvf templates.tar.gz .
+
             mkdir -p ~/project/.circleci/backend/roles/backend_server/files/
             mv artifact.tar.gz .circleci/backend/roles/backend_server/files/artifact.tar.gz
 
             mv app.tar.gz .circleci/backend/roles/backend_server/files/app.tar.gz
+            mv templates.tar.gz .circleci/backend/roles/backend_server/files/templates.tar.gz
+            mv static.tar.gz .circleci/backend/roles/backend_server/files/static.tar.gz
 
             mv requirements.txt .circleci/backend/roles/backend_server/files/requirements.txt
             # mv db.sqlite3 .circleci/backend/roles/backend_server/files/db.sqlite3
             mv manage.py .circleci/backend/roles/backend_server/files/manage.py
+            mv conf/gunicorn_config.py .circleci/backend/roles/backend_server/files/gunicorn_config.py
+            mv nginx.default .circleci/backend/roles/backend_server/files/nginx.default
 
             sleep 2
             ls
