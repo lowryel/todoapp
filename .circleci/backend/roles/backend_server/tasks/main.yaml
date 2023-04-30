@@ -26,7 +26,7 @@
     state: directory
 
 
-- name: extract requirements files
+- name: extract taskapp folder
   ansible.builtin.shell:
     tar -xvf artifact.tar.gz .
     rm artifact.tar.gz
