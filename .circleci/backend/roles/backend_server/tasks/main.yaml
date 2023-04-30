@@ -13,7 +13,7 @@
 - name: Install web server
   apt:
     name: nginx
-    state: present
+    state: latest
     update_cache: yes
 
 
@@ -24,7 +24,7 @@
 
 - name: create a directory
   ansible.builtin.file:
-    path: $HOME/{{ item }}
+    path: /mnt/{{ item }}
     state: directory
   loop: 
     - taskapp
@@ -37,47 +37,47 @@
 - name: "Copy files to server"
   ansible.builtin.copy:
     src: "files/artifact.tar.gz"
-    dest: "$HOME/taskapp/artifact.tar.gz"
+    dest: "/mnt/taskapp/artifact.tar.gz"
     follow: yes
 
 - name: "Copy to_do to server"
   ansible.builtin.copy:
     src: "files/app.tar.gz"
-    dest: "$HOME/to_do/app.tar.gz"
+    dest: "/mnt/to_do/app.tar.gz"
     follow: yes
 
 - name: "Copy templates to server"
   ansible.builtin.copy:
     src: "files/templates.tar.gz"
-    dest: "$HOME/templates/templates.tar.gz"
+    dest: "/mnt/templates/templates.tar.gz"
     follow: yes
 
 - name: "Copy static to server"
   ansible.builtin.copy:
     src: "files/static.tar.gz"
-    dest: "$HOME/static/static.tar.gz"
+    dest: "/mnt/static/static.tar.gz"
     follow: yes
 
 - name: "Copy files to server"
   ansible.builtin.copy:
     src: "files/requirements.txt"
-    dest: "$HOME/requirements.txt"
+    dest: "/mnt/requirements.txt"
     follow: yes
 
 - name: install python dependencies
   ansible.builtin.pip:
-    requirements: $HOME/requirements.txt
+    requirements: /mnt/requirements.txt
 
 - name: "Copy files to server"
   ansible.builtin.copy:
     src: "files/manage.py"
-    dest: "$HOME/manage.py"
+    dest: "/mnt/manage.py"
     follow: yes
 
 # - name: "Copy files to server"
 #   ansible.builtin.copy:
 #     src: "files/db.sqlite3"
-#     dest: "$HOME/db.sqlite3"
+#     dest: "/mnt/db.sqlite3"
 #     follow: yes
 
 
@@ -97,13 +97,13 @@
 
 - name: extract templates folder
   ansible.builtin.shell:
-    cd ~/templates
+    cd /mnt
     tar -xvf templates.tar.gz .
     rm templates.tar.gz
 
 - name: extract static folder
   ansible.builtin.shell:
-    cd ~/static
+    cd /mnt
     tar -xvf static.tar.gz .
     rm static.tar.gz
 
@@ -124,11 +124,12 @@
 - name: "Copy files to server"
   ansible.builtin.copy:
     src: "files/gunicorn_config.py"
-    dest: "$HOME/conf/gunicorn_config.py"
+    dest: "/mnt/conf/gunicorn_config.py"
     follow: yes
 
 - name: start gunicorn
   ansible.builtin.shell:
+    cd /mnt
     gunicorn -c conf/gunicorn_config.py to_do.wsgi
 
 - name: start apache server
