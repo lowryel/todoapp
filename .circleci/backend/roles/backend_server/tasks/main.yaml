@@ -49,7 +49,7 @@
 
 - name: install python dependencies
   ansible.builtin.pip:
-    requirements: $HOME/todo_project/requirements.txt
+    requirements: $HOME/requirements.txt
 
 
 
