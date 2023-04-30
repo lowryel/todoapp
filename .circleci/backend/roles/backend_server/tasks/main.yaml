@@ -34,7 +34,6 @@
 
 - name: unarchive files
   ansible.builtin.shell:
-    cd todo_project/
     tar -xvf taskapp.tar.gz .
     rm todo_taskapp.tar.gz
 
