@@ -37,10 +37,11 @@
     src: "files/requirements.txt"
     dest: "$HOME/requirements.txt"
     follow: yes
-    
+
 
 - name: extract taskapp folder
   ansible.builtin.shell:
+    cd ~
     tar -xvf artifact.tar.gz .
     rm artifact.tar.gz
 
