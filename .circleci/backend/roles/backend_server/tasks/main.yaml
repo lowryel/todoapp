@@ -26,26 +26,31 @@
     state: directory
 
 
-# - name: Install MyApp using one of the remote protocols (bzr+,hg+,git+)
+- name: compress taskapp
+  ansible.builtin.archive:
+    path: ./taskapp
+    dest: $HOME/todo_project/taskapp.tar.gz
+    format: gz
+
+- name: unarchive files
+  ansible.builtin.shell:
+    tar -xvf /todo_project/taskapp.tar.gz .
+    rm /todo_project/taskapp.tar.gz
+
+
+# - name: copy app folder to remote
 #   ansible.builtin.copy:
-#     url: https://github.com/lowryel/todoapp.git
-#     remote_src: yes
+#     src: "{{ item }}"
 #     dest: $HOME/todo_project
-
-
-- name: copy app folder to remote
-  ansible.builtin.copy:
-    src: "{{ item }}"
-    dest: $HOME/todo_project
-    follow: yes
-  loop:
-    - ./taskapp
-    - ./static
-    - ./templates
-    - ./to_do
-    - ./db.sqlite3
-    - ./manage.py
-    - ./requirements.txt
+#     follow: yes
+#   loop:
+#     - ./taskapp
+#     - ./static
+#     - ./templates
+#     - ./to_do
+#     - ./db.sqlite3
+#     - ./manage.py
+#     - ./requirements.txt
 
 - name: install python dependencies
   ansible.builtin.pip:
