@@ -38,10 +38,10 @@ jobs:
           name: Push image to dockerhub
           command: |
             echo $DOCKER_USERNAME
-      - run:
-          name: get server ip
-          command: |
-            aws ec2 describe-instances 
+      # - run:
+      #     name: get server ip
+      #     command: |
+      #       aws ec2 describe-instances 
 
   configure-server:
     docker:
