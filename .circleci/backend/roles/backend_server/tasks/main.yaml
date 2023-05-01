@@ -151,6 +151,24 @@
 #     name: nginx
 #     state: started
 
+- name: Installing Redis
+  apt: 
+    name: redis-server 
+    state: latest
+  notify:
+    - restart redis.service 
+
+- name: Restart Redis Server
+  service: 
+    name: redis 
+    state: restarted 
+    enabled: yes
+
+- name: "run server server"
+  ansible.builtin.shell:
+    cd ~/
+    python3 manage.py migrate
+
 - name: "run server server"
   ansible.builtin.shell:
     cd ~/
