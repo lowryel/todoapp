@@ -4,8 +4,9 @@
 - Run: 'docker build -t todoapp .' independently
 
 * Then run:
-    ```docker run -it -p 8020:8020 -e DJANGO_SUPERUSER_USERNAME= -e DJANGO_SUPERUSER_PASSWORD= -e DJANGO_SUPERUSER_EMAIL= todoapp
-    ```
+    `docker run -it -p 8020:8020 -e DJANGO_SUPERUSER_USERNAME= -e DJANGO_SUPERUSER_PASSWORD= -e DJANGO_SUPERUSER_EMAIL= todoapp`
+
+
     
 * Run this command to bind your port "docker run -d -p 8020:8020 lowry09/todo:v1.0.2"
 * This will make it easy for you to access the localhost on port 8020
