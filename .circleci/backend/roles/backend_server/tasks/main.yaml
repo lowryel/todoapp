@@ -67,13 +67,6 @@
     follow: yes
 
 
-# - name: "Copy files to server"
-#   ansible.builtin.copy:
-#     src: "files/db.sqlite3"
-#     dest: "/mnt/db.sqlite3"
-#     follow: yes
-
-
 - name: install python dependencies
   ansible.builtin.pip:
     requirements: ~/requirements.txt
@@ -89,7 +82,6 @@
 #     src: "files/db.sqlite3"
 #     dest: "/mnt/db.sqlite3"
 #     follow: yes
-
 
 
 - name: extract taskapp folder

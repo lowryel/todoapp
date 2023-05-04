@@ -1,29 +1,30 @@
 FROM python:3.10-slim-buster AS builder
 
-
-RUN apt-get update && apt-get install nginx vim -y --no-install-recommends
-COPY nginx.default /etc/nginx/sites-available/default
-RUN ln -sf /dev/stdout /var/log/nginx/access.log \
-    && ln -sf /dev/stderr /var/log/nginx/error.log
-
-# working directory
 WORKDIR /todo/
 
+COPY appf/. /todo/
 
-# copy the entire project folder into the working directory
-COPY . . /todo/
-
-# install dependencies
-RUN pip install --upgrade pip 
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
-RUN chown -R www-data:www-data /todo
+RUN adduser www-data
+RUN chmod +x start-server.sh
 
-FROM python:3.8.16-slim
+FROM python:3.10-alpine
 
 WORKDIR /app/
-COPY --from=builder /todo/ /app
-# Expose the application to port 8020
+
+COPY --from=builder /todo/ /app/
+
+RUN chown -R www-data:www-data /app/
+USER www-data
+
+COPY requirements /app/
+
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+RUN chown -R www-data:www-data /app/
 EXPOSE 8020
+
 STOPSIGNAL SIGTERM
 
 CMD ["./start-server.sh"]
